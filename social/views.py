@@ -37,5 +37,12 @@ def post(request):
         form = PostForm()
     return render(request, 'social/post.html',{'form':form})
 
-def profile(request):
-    return render(request,'social/profile.html')
+def profile(request, username=None):
+    current_user=request.user
+    if username and username != current_user.username:
+        user = User.objects.get(username=username)
+        posts = user.posts.all()
+    else:
+        posts = current_user.posts.all()
+        user = current_user
+    return render(request,'social/profile.html',{'user':user,'posts':posts})
