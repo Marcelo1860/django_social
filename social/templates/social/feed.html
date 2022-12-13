@@ -11,6 +11,9 @@
             <i class="clock"></i>
             <time data-time="#">{{post.timestamp|naturaltime}}</time>
             <div class="post">{{post.content}}</div>
+            {% if request.user == post.user %}
+            <div  style = "margin:10px"> <a class="gg-trash"  href="{% url 'delete' post.id %}"></a> </div>
+            {% endif %}
         </div>
     </div>
 </article>

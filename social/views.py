@@ -26,7 +26,7 @@ def register(request):
         form = UserRegisterForm()
     context = {'form': form}
     return render(request,'social/register.html',context)
-    
+
 @login_required
 def post(request):
     current_user = get_object_or_404 (User, pk=request.user.pk)
@@ -69,4 +69,10 @@ def unfollow(request, username):
     rel = Relationship.objects.filter(from_user=current_user.id, to_user=to_user_id).get()
     rel.delete()
     messages.success(request, f'You dont follow {username} anymore')
+    return redirect('feed')
+
+def delete(request, post_id):
+    post = Post.objects.get(id = post_id)
+    post.delete()
+    messages.success(request, f'Post deleted')
     return redirect('feed')

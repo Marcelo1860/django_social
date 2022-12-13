@@ -1,3 +1,5 @@
+@import url('https://css.gg/trash.css');
+
 body{
 	background: #2F4F4F;
 	font-size: 62.5%;
@@ -284,6 +286,7 @@ img.profile{
 .follow-button{
   color: white;
 }
+
 
 /*Media Queries*/
 @media (max-width: 786px) {
