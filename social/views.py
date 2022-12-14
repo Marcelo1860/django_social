@@ -77,7 +77,7 @@ def delete(request, post_id):
     messages.success(request, f'Post deleted')
     return redirect('feed')
 
-def edit(request):
+###def edit(request):
     if request.method == 'POST':
       u_form = UserUpdateForm(request.POST,instance = request.user)  
       p_form = ProfileUpdateForm(request.POST, request.FILES, instance = request.user.profile)
@@ -92,6 +92,28 @@ def edit(request):
     
     context = {'u_form': u_form,'p_form':p_form}
     return render(request,'social/edit.html',context)
+###
 
+def edit(request):
+    if request.method =='POST':
+        u_form = UserUpdateForm(request.POST)
+        p_form = ProfileUpdateForm(request.POST,request.FILES) 
+
+        if u_form.is_valid():
+            u_form.save(commit = False )
+            p_form.save(commit = False )
+            useract = User.objects.get(username = request.user.username)
+            useract.username = u_form.cleaned_data['username']
+            useract.save()
+            userimg = Profile.objects.get(pk = request.user.profile.pk)
+            userimg.image = p_form.cleaned_data['image']
+            userimg.save()
+            messages.success(request, f'Profile updated')
+            return redirect('feed')
+    else: 
+        u_form = UserUpdateForm()
+        p_form = ProfileUpdateForm()
+    context = {'u_form': u_form,'p_form': p_form}
+    return render(request,'social/edit.html',context)
 
 

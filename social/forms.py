@@ -23,13 +23,13 @@ class PostForm(forms.ModelForm):
         fields = ['content']
 
 class UserUpdateForm(forms.ModelForm):
-    #username = forms.CharField(label ='', widget = forms.Textarea(attrs={'rows':2,'placeholder':'Add new username'}),required = True)
+    username = forms.CharField(label='Username', widget=forms.TextInput)
     class Meta:
         model = User
         fields = ['username']
 
 class ProfileUpdateForm(forms.ModelForm):
-    #image = forms.ImageField()
+    image = forms.ImageField()
     class Meta:
         model = Profile
         fields = ['image']
