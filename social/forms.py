@@ -1,7 +1,8 @@
+from cProfile import Profile
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, Profile
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(label='Username', widget=forms.TextInput)
@@ -20,3 +21,15 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['content']
+
+class UserUpdateForm(forms.ModelForm):
+    #username = forms.CharField(label ='', widget = forms.Textarea(attrs={'rows':2,'placeholder':'Add new username'}),required = True)
+    class Meta:
+        model = User
+        fields = ['username']
+
+class ProfileUpdateForm(forms.ModelForm):
+    #image = forms.ImageField()
+    class Meta:
+        model = Profile
+        fields = ['image']

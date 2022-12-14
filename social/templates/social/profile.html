@@ -13,6 +13,8 @@
 			{% else %}
 			<button><a class="follow-button" href="{% url 'unfollow' user %}">Unfollow</a></button>
 			{% endif %}	
+		{% else %}
+			<button><a class="follow-button" href="{% url 'edit' %}">Edit Profile</a></button>
 		{% endif %}	
 	{% endif %}
 	

@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect,get_object_or_404
 
 from social.models import Relationship
 from .models import Post 
-from .models import Relationship
-from .forms import UserRegisterForm,PostForm
+from .models import Relationship, Profile
+from .forms import UserRegisterForm,PostForm,ProfileUpdateForm, UserUpdateForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required 
@@ -76,3 +76,22 @@ def delete(request, post_id):
     post.delete()
     messages.success(request, f'Post deleted')
     return redirect('feed')
+
+def edit(request):
+    if request.method == 'POST':
+      u_form = UserUpdateForm(request.POST,instance = request.user)  
+      p_form = ProfileUpdateForm(request.POST, request.FILES, instance = request.user.profile)
+
+      if u_form.is_valid() and p_form.is_valid():
+          u_form.save()
+          p_form.save()
+          return redirect('feed')
+    else:
+        u_form = UserUpdateForm(instance = request.user)
+        p_form = ProfileUpdateForm()
+    
+    context = {'u_form': u_form,'p_form':p_form}
+    return render(request,'social/edit.html',context)
+
+
+

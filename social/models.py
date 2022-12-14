@@ -22,6 +22,7 @@ class Profile(models.Model):
         user_ids= Relationship.objects.filter(to_user=self.user)\
                               .values_list('from_user_id',flat=True)
         return User.objects.filter(id__in=user_ids)
+    
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'posts' )

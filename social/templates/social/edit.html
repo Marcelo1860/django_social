@@ -1,0 +1,18 @@
+{% extends 'social/layout.html' %}
+{% block content %}
+
+<form method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Username</label>
+    <div>
+        {{ u_form.username }}
+    </div>
+    <label>Profile photo</label>
+    <div>
+        {{ p_form.image }}
+    </div>
+    <button type="'submit" class="post" id="">Save</button>
+</form>
+
+
+{% endblock %}
